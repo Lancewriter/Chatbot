@@ -1,0 +1,11 @@
+services:
+   -type: web
+   name:chatbot backend
+   env: python
+   buildCommand:""
+   startCommand:python app.py
+   plan:free
+   autoDeploy:true 
+   envVars:
+          -key:OPENAI_API_KEY
+          fromEnvironment:true
