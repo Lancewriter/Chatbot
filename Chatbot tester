@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fraicly Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+
+    #chatbox {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    #messages {
+      height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      background-color: #fafafa;
+    }
+
+    .message {
+      margin-bottom: 10px;
+    }
+
+    .user {
+      font-weight: bold;
+      color: #007BFF;
+    }
+
+    .bot {
+      font-weight: bold;
+      color: #28A745;
+    }
+
+    #inputForm {
+      display: flex;
+    }
+
+    #inputMessage {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px 0 0 5px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+
+    #sendButton {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 0 5px 5px 0;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+    }
+
+    #sendButton:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div id="chatbox">
+    <div id="messages"></div>
+    <form id="inputForm">
+      <input type="text" id="inputMessage" placeholder="Ask Beacon..." required />
+      <button type="submit" id="sendButton">Send</button>
+    </form>
+  </div>
+
+  <script>
+    async function sendMessage(userMessage) {
+  const response = await fetch("/.netlify/functions/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ message: userMessage })
+  });
+
+  const data = await response.json();
+  return data.reply;
+}
+
+  </script>
+</body>
+</html>
+
